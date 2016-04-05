@@ -1,0 +1,247 @@
+<!-- scope names
+comment > line, block
+constant > numeric, character, language, other
+entity > name, other
+invalid > illegal, deprecated
+keyword > control, operator, other
+markup > underline, bold, heading, italic, list, quote, raw, other
+meta
+storage > type, modifier
+string > quoted, unquoted, interpolated, regexp, other
+support > function, class, type, constant, variable, other
+variable > parameter, language, other
+
+found @:http://stackoverflow.com/questions/10834765/where-to-find-a-list-of-scopes-for-sublime2-or-textmate
+ -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>aspx</string>
+		<string>asmx</string>
+		<string>rpgle</string>
+		<string>sqlrpgle</string>
+	</array>
+	<key>foldingStartMarker</key>
+	<string>(?i)(for|if|do|dow|dou|select|begsr)</string>
+	<key>foldingStopMarker</key>
+	<string>(?i)(end|endif|enddo|endsl|endsr)</string>
+	<key>grammaurl</key>
+	<string>http://manual.macromates.com/en/language_grammars#language_grammars</string>
+	<key>name</key>
+	<string>icebreak</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>begin</key>
+			<string>(?=(?i:exec\ssql))</string>
+			<key>end</key>
+			<string>;</string>
+			<key>name</key>
+			<string>support.embeddedsql.rpgle</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>(?i)(exec\sSQL)</string>
+					<key>name</key>
+					<string>constant.embeddedsql.exec.rpgle</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>:</string>
+					<key>end</key>
+					<string>(?=(;|,|\s|\)|\n))</string>
+					<key>name</key>
+					<string>constant.embeddedsql.variable.rpgle</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\'</string>
+					<key>end</key>
+					<string>\'</string>
+					<key>name</key>
+					<string>constant.embeddedsql.variable.rpgle</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\s(?i)(as|alter|ascii|and|asi_nulls|begin|binary|bool|byte|case|char|close|const|continue|create|cursor|datetime|dec|declare|decimal|default|delete|do|double|drop|else|end|encryption|execute|exists|false|fetch|float|for|from|full|function|go|goto|grant|group by|having|if|in|index|inner|insert|int|into|is|join|key|left|like|long|matched|merge|money|native|new|nocount|nolock|not|null|next|off|on|order by|open|prepare|primary|print|procedure|quoted_identifier|return|right|rowlock|set|select|small|smalldatetime|smallint|smallmoney|sysname|table|then|timestamp|tinyint|to|top|true|update|updlock|uniqueidentifier|use|using|values|varchar|void|with|when|where|while)\b</string>
+					<key>name</key>
+					<string>keyword.control</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>V[0-9]*</string>
+					<key>name</key>
+					<string>string.versionnumber.rpgle</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>^;</string>
+					<key>name</key>
+					<string>support.embeddedsql.statement.rpgle</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>^.{6}\*.*$|//.*</string>
+			<key>name</key>
+			<string>string.language.operator</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>^[*]{2,2}</string>
+			<key>comment</key>
+			<string>Compile time array in the bottom of the source file</string>
+			<key>end</key>
+			<string>(E-*-O-*-F)</string>
+			<key>name</key>
+			<string>support.quoted.single.icebreak</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\.</string>
+					<key>name</key>
+					<string>support.character.escape.icebreak</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+ 			 <key>comment</key>
+ 			 <string>Margin area</string>
+ 			 <key>match</key>
+ 			 <string>^.{,5}</string>
+ 			 <key>name</key>
+ 			 <string>string.language.operator</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?i)\b(CTL-OPT|(DCL|END)-(C|DS|F|PARM|PI|PR(OC)?|S(UBF)?)\b|on-error|monitor)</string>
+			<key>name</key>
+			<string>keyword.control.icebreak</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?i)\b(for|if|do|dow|dou|select|begsr|endsr|endif|endsl|endfor|enddo|doweq|ifeq|end|andne|caseq|cabeq|ifne)\b</string>
+			<key>name</key>
+			<string>keyword.control.icebreak</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?i)\b(when|exsr|else|elseif|other)\b</string>
+			<key>name</key>
+			<string>keyword.control.icebreak</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?i)[\%](abs|addr|alloc|bitand|bitnot|bitor|bitxor|char|check|checkr|date|days|dec|dech|decpos|diff|div|editc|editflt|editw|elem|eof|equal|error|fields|float|found|graph|hours|int|inth|kds|len|lookup|minutes|months|mseconds|nullind|occur|open|paddr|paddr|parms|realloc|rem|replace|scan|seconds|shtdn|size|sqrt|status|str|str|str|subdt|this|time|timestamp|tlookup|trim|triml|trimr|ucs2|uns|unsh|xfoot|xlate|subst|years)\b</string>
+			<key>name</key>
+			<string>constant.builtinfunction.icebreak</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?i)\b(not|acq|add|adddur|alloc|and|bitoff|biton|cab|call|callb|callp|cas|cat|chain|check|checkr|clear|close|commit|comp|dealloc|define|delete|div|dsply|dump|eval|evalr|except|exfmt|exsr|extrct|feod|force|goto|in|iter|kfld|klist|leave|leavesr|lookup|mhhzo|mhlzo|mlhzo|mllzo|monitor|move|movea|movel|mult|mvr|next|occur|on|open|or|other|out|parm|plist|post|read|readc|reade|readp|readpe|realloc|rel|reset|reset|return|rolbk|scan|setgt|setll|setoff|seton|shtdn|sorta|sqrt|sub|subdur|subst|tag|test|testb|testn|testz|time|unlock|update|write|xfoot|xlate|z-add|z-sub)\b</string>
+			<key>name</key>
+			<string>keyword.operator.icebreak</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?i)(/free|/end-free|/include|/copy)</string>
+			<key>name</key>
+			<string>constant.character.escape.icebreak</string>
+		</dict>
+
+		<dict>
+			<key>match</key>
+			<string>(?i)\b(var)\b</string>
+			<key>name</key>
+			<string>storage.type.icebreak</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?i)[*](ON|OFF|ENTRY|ALL|BLANK|BLANKS|ZERO|ZEROS|HIVAL|LOVAL)\b</string>
+			<key>name</key>
+			<string>constant.language.icebreak</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?i)(exec)\s+(sql)\b</string>
+			<key>end</key>
+			<string>\;</string>
+			<key>name</key>
+			<string>support.constant.icebreak</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>SQL</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?i)(exec)\s+(sql)\b</string>
+			<key>name</key>
+			<string>keyword.control.icebreak</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>\%\&gt;</string>
+			<key>end</key>
+			<string>\&lt;\%</string>
+			<key>name</key>
+			<string>storage.type.icebreak</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>\/\*</string>
+			<key>end</key>
+			<string>\*\/</string>
+			<key>name</key>
+			<string>comment.block.icebreak</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?i)^[ \t]{0,5}[ hfdc][*]</string>
+			<key>end</key>
+			<string>\n</string>
+			<key>name</key>
+			<string>comment.block.icebreak</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>\/\/</string>
+			<key>end</key>
+			<string>\n</string>
+			<key>name</key>
+			<string>comment.block.icebreak</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>\'.*[\']</string>
+			<key>end</key>
+			<string></string>
+			<key>name</key>
+			<string>constant.character.escape.icebreak</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\'</string>
+					<key>name</key>
+					<string>constant.character.escape.icebreak</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.icebreak</string>
+	<key>uuid</key>
+	<string>f43aff62-4f12-4328-9cbb-a8a7a3f1cfef</string>
+</dict>
+</plist>
