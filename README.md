@@ -10,10 +10,19 @@ Icebreak existing plugin extended.
 - Install Package Control (like 'apt-get install' for Sublime).
 - Install Edit Command Palette (optional - allows shortcut keys to be bound to sublime commands).
 - Go to Preferences > Browse packages and create a folder called IceBreak.
-- Add the icebreak.tmlanguage file to this location. This can be found on the P drive (P:\SublimeForRPG\SublimeForRPG version 2.3)
+- Add the icebreak.tmlanguage file to this location. 
 - Go to Preferences > Browse packages and extract systemitools to this location.
-- Open checkout.py and change the username and password of ftp.login to be your tracey credentials.
-- Open commit.py and change the username and password of ftp.login to be your tracey credentials.
+- Open checkout.py and change the username and password of ftp.login to be your credentials. 
+ 
+Change ftp.login to be the target system 
+```
+ftp = FTP('systemgoeshere')
+
+ftp.login('usernamegoeshere', 'passwordgoeshere')
+```
+- Open commit.py and change the username and password of ftp.login to be your credentials.
+
+Change ftp.login to be the target system 
 - Create the directory c:\jhc\src\rpg\
 - Create the directory c:\jhc\src\rpg\cr
 - Replace the following file with everything between the braces []. Preferences > Commands - User
