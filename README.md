@@ -1,44 +1,40 @@
 # SublimeForRPG
-Sublime for RPG coding written by Peter Smith.
+Sublime for RPG coding written by Peter Smith 
+Icebreak existing plugin extended.
 
-Verion one install instructions for windows.
+# Installation instructions
 
-Install sublime text 3.
-Install package control.
-Install edit command palette.
-Go to Preferences > Browsepackages and create a folder called IceBreak.
-Add the icebreak.tmlanguage file to this location.
+Install Python
+Install Sublime Text 3.
+Install Package Control (like 'apt-get install' for Sublime).
+Install Edit Command Palette (optional - allows shortcut keys to be bound to sublime commands).
+Go to Preferences > Browse packages and create a folder called IceBreak.
+Add the icebreak.tmlanguage file to this location. This can be found on the P drive (P:\SublimeForRPG\SublimeForRPG version 2.3)
+Go to Preferences > Browse packages and extract systemitools to this location.
+Open checkout.py and change the username and password of ftp.login to be your tracey credentials.
+Open commit.py and change the username and password of ftp.login to be your tracey credentials.
 Create the directory c:\jhc\src\rpg\
 Create the directory c:\jhc\src\rpg\cr
-Extract the sublimeUtilities to c:\jhc\src\rpg\cr (creating the folding structure Create the directory c:\jhc\src\rpg\sublimeutilities)
-
-Replace the following file with everything between the braces [].
-preferences > commands - user
+Replace the following file with everything between the braces []. Preferences > Commands - User
 [
     {
-        "caption": "checkout",
-        "command":"exec",
-        "args": {"cmd": "C:\\jhc\\src\\RPG\\SublimeUtilities\\keybindingcheckoutRPG.bat"}
-    },
-    {
-        "caption": "checkin",
-        "command":"exec",
-        "args": {"cmd": "C:\\jhc\\src\\RPG\\SublimeUtilities\\keybindingcommitRPG.bat"}
-    }
+       "caption": "RPG-checkout",
+       "command":"checkout_from_tracey"
+   },
+       {
+       "caption": "RPG-commit",
+       "command":"commit_to_tracey"
+   }
 ]
-
-Replace the following file with everything between the braces [].
-preferences > keybindings - user
+These commands will now be available from the command palette (Ctrl+Shift+P)
+You can bind these to shortcuts with Edit Command Palette by adding the following to Preferences > Key Bindings - User
 [
-    {"keys": ["ctrl+shift+1"],
-        "command":"exec",
-        "args": {"cmd": "C:\\jhc\\src\\RPG\\SublimeUtilities\\keybindingcheckoutRPG.bat"}
-    },
-
-    {"keys": ["ctrl+shift+9"],
-        "command":"exec",
-        "args": {"cmd": "C:\\jhc\\src\\RPG\\SublimeUtilities\\keybindingcommitRPG.bat"}
-    }
+    {"keys": ["ctrl+shift+7"],
+       "command":"checkout_from_tracey",
+       "args": {}
+   },
+   {"keys": ["ctrl+shift+9"],
+       "command":"commit_to_tracey",
+       "args": {}
+   }
 ]
-
-

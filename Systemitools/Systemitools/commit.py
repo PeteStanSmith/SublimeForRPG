@@ -10,6 +10,7 @@ class commitToTracey(sublime_plugin.TextCommand):
     def run(self, edit):
         global logger
         global ir
+        self.view.set_status('task', 'Committing source code to CR')
         logger = Logger('log')
         logger.log('Commit operation initiated')
         self.set_variables()
@@ -67,7 +68,11 @@ class commitToTracey(sublime_plugin.TextCommand):
             fileName = 'C:\\jhc\\src\\RPG\\CR\\' + program + '.' + \
                        fileExtension
 
-            retrievalTarget = Utils.getRetrievalTarget(fileExtension)
+            try:
+                retrievalTarget = Utils.getRetrievalTarget(fileExtension)
+            except KeyError:
+                self.view.set_status('task', 'Last commit failed')
+                raise
 
             putOperation = ('STOR ' + retrievalTarget +
                             '.' + program)
@@ -84,15 +89,18 @@ class commitToTracey(sublime_plugin.TextCommand):
             file.close()
             logger.log('Source code for ' + library + '/' +
                        program + ' successfully committed')
+            self.view.erase_status('task')
 
         else:
             logger.log('No IR was entered, commit aborted')
+            self.view.set_status('task', 'Last commit failed')
 
         logger.close()
         return
 
     def exit(self):
         logger.log('User connection reset by peer')
+        self.view.erase_status('task')
 
     def log(self, text):
         global logFile

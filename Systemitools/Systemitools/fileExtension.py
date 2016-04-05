@@ -6,7 +6,9 @@ class Utils():
     @staticmethod
     def getRetrievalTarget(fileExtension):
         sourceFileDictionary = {'sqlrpgle': Utils.qrpglesrc,
+                                'rpgleref': Utils.qrpgleref,
                                 'rpgle': Utils.qrpglesrc,
+                                'rpg': Utils.qrpgsrc,
                                 'clle': Utils.qcllesrc,
                                 'cl': Utils.qclsrc,
                                 'pf': Utils.qddssrc,
@@ -29,6 +31,10 @@ class Utils():
     @staticmethod
     def qrpglesrc():
         return 'qrpglesrc'
+
+    @staticmethod
+    def qrpgsrc():
+        return 'qrpgsrc'
 
     @staticmethod
     def qcllesrc():
@@ -57,3 +63,7 @@ class Utils():
     @staticmethod
     def sqltblsrc():
         return 'sqltblsrc'
+
+    @staticmethod
+    def qrpgleref():
+        return 'qrpgleref'
