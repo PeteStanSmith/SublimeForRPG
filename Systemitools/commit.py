@@ -111,19 +111,19 @@ class commitToTracey(sublime_plugin.TextCommand):
                     self.view.set_status('task', 'Last commit failed')
                     raise
 
-                # putOperation = ('STOR ' + retrievalTarget +
-                #                 '.' + program)
-                # logger.log(putOperation)
+                putOperation = ('STOR ' + retrievalTarget +
+                                '.' + program)
+                logger.log(putOperation)
 
-                # global file
-                # file = open(fileName, 'rb')
-                # ftp = FTP('tracey')
+                global file
+                file = open(fileName, 'rb')
+                ftp = FTP('tracey')
 
-                # ftp.login('PSDEV', 'PSDEV')
-                # ftp.cwd(library)
-                # ftp.storlines(putOperation, file)
-                # ftp.quit()
-                # file.close()
+                ftp.login('PSDEV', 'PSDEV')
+                ftp.cwd(library)
+                ftp.storlines(putOperation, file)
+                ftp.quit()
+                file.close()
                 logger.log('Source code for ' + library + '/' +
                             program + ' successfully committed')
                 self.view.erase_status('task')
