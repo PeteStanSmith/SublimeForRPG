@@ -17,6 +17,10 @@ class Utils():
                                 'ddl': Utils.sqltblsrc,
                                 'sql': Utils.sqlfuncsrc,
                                 'bnd': Utils.qsrvsrc,
+                                'ind': Utils.sqlindsrc,
+                                'proc': Utils.sqlprocsrc,
+                                'trigger': Utils.sqltrgsrc,
+                                'view': Utils.sqlviewsrc,
                                 'cmd': Utils.qcmdsrc}
 
 # except KeyError:
@@ -26,7 +30,7 @@ class Utils():
 # logger.close()
 # return
 
-        return sourceFileDictionary[fileExtension]()
+        return sourceFileDictionary[fileExtension.lower()]()
 
     @staticmethod
     def qrpglesrc():
@@ -67,3 +71,21 @@ class Utils():
     @staticmethod
     def qrpgleref():
         return 'qrpgleref'
+
+    @staticmethod
+    def sqlindsrc():
+        return 'sqlindsrc'
+
+    @staticmethod
+    def sqlprocsrc():
+        return 'sqlprocsrc'
+
+    @staticmethod
+    def sqlviewsrc():
+        return 'sqlviewsrc'
+
+    @staticmethod
+    def sqltrgsrc():
+        return 'sqltrgsrc'
+
+
