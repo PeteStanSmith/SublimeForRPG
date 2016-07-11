@@ -17,10 +17,27 @@ class commitToTracey(sublime_plugin.TextCommand):
 
     def set_variables(self):
         global ir
+        global fileExtension
         ir = ''
+
+        currentprogramWithFile = ""
+        filename = str(self.view.file_name())
+        tokens = filename.split("\\")
+
+        for token in tokens:
+            if token != "None":
+                currentprogramWithFile = token
+
+        tokens = currentprogramWithFile.split(".")
+        for token in tokens:
+            if token != "None":
+                fileExtension = token
+
+        currentprogram = str.replace(currentprogramWithFile, "." + fileExtension, "")
+
         self.view.window() \
             .show_input_panel("Enter the program name: ",
-                              "", self.set_program,
+                              currentprogram, self.set_program,
                               None, self.exit)
         return
 
@@ -50,50 +67,74 @@ class commitToTracey(sublime_plugin.TextCommand):
         logger.log('User entered CR: ' + cr)
         self.view.window() \
             .show_input_panel("Enter the file entension file: ",
-                              "", self.set_fileExtension,
+                              fileExtension, self.set_fileExtension,
                               None, self.exit)
         return
 
     def set_fileExtension(self, text):
         global fileExtension
-        global logFile
 
         fileExtension = text
         logger.log('User entered file extension: ' + fileExtension)
 
-        # if the ir isn't blank construct the library
-        if ir != '':
-            library = ('o#' + ir + cr)
+        opentabs = self.view.window().views()
+        for opentab in opentabs :
+            if opentab.is_dirty():
 
-            fileName = 'C:\\jhc\\src\\RPG\\CR\\' + program + '.' + \
-                       fileExtension
+                paneltext = "There are open unsaved changes, " \
+                     "would you like to continue, Y or N:"
 
-            try:
-                retrievalTarget = Utils.getRetrievalTarget(fileExtension)
-            except KeyError:
+                self.view.window() \
+                    .show_input_panel(paneltext, "",
+                    self.commitfile, None, self.exit)
+                return
+
+        self.commitfile("No unsaved changes")
+        return
+
+    def commitfile(self, text):
+        global fileExtension
+        logger.log('Proceed with unsaved changes: ' + text)
+
+        if text.lower() == 'y' or text == 'No unsaved changes':
+
+            # if the ir isn't blank construct the library
+            if ir != '':
+                library = ('o#' + ir + cr)
+
+                fileName = 'C:\\jhc\\src\\RPG\\CR\\' + program + '.' + \
+                           fileExtension
+
+                try:
+                    retrievalTarget = Utils.getRetrievalTarget(fileExtension)
+                except KeyError:
+                    self.view.set_status('task', 'Last commit failed')
+                    raise
+
+                putOperation = ('STOR ' + retrievalTarget +
+                                '.' + program)
+                logger.log(putOperation)
+
+                global file
+                file = open(fileName, 'rb')
+                ftp = FTP('tracey')
+
+                ftp.login('PSDEV', 'PSDEV')
+                ftp.cwd(library)
+                ftp.storlines(putOperation, file)
+                ftp.quit()
+                file.close()
+                logger.log('Source code for ' + library + '/' +
+                            program + ' successfully committed')
+                self.view.erase_status('task')
+
+            else:
+                logger.log('No IR was entered, commit aborted')
                 self.view.set_status('task', 'Last commit failed')
-                raise
-
-            putOperation = ('STOR ' + retrievalTarget +
-                            '.' + program)
-            logger.log(putOperation)
-
-            global file
-            file = open(fileName, 'rb')
-            ftp = FTP('tracey')
-
-            ftp.login('PSDEV', 'PSDEV')
-            ftp.cwd(library)
-            ftp.storlines(putOperation, file)
-            ftp.quit()
-            file.close()
-            logger.log('Source code for ' + library + '/' +
-                       program + ' successfully committed')
-            self.view.erase_status('task')
 
         else:
-            logger.log('No IR was entered, commit aborted')
-            self.view.set_status('task', 'Last commit failed')
+            logger.log('Abort for unsaved file changes')
+            self.view.erase_status('task')
 
         logger.close()
         return
@@ -101,9 +142,4 @@ class commitToTracey(sublime_plugin.TextCommand):
     def exit(self):
         logger.log('User connection reset by peer')
         self.view.erase_status('task')
-
-    def log(self, text):
-        global logFile
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logFile.write(timestamp + ': ' + text + "\n")
-        return
+        logger.close()

@@ -55,6 +55,8 @@ These commands will now be available from the command palette (Ctrl+Shift+P)
 
 ## Release notes
 
+### 2.5
+Will autopopulate the file name and extension from the active view if possible. Close the log file when the commit or check out prompts are exited.
 ### 2.4
 Now supports anycase file extensions.
 Logging has been changed to append the new messages so that the file will contain a full history of checkouts and commits.
