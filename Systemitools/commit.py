@@ -17,10 +17,27 @@ class commitToTracey(sublime_plugin.TextCommand):
 
     def set_variables(self):
         global ir
+        global fileExtension
         ir = ''
+
+        currentprogramWithFile = ""
+        filename = str(self.view.file_name())
+        tokens = filename.split("\\")
+
+        for token in tokens:
+            if token != "None":
+                currentprogramWithFile = token
+
+        tokens = currentprogramWithFile.split(".")
+        for token in tokens:
+            if token != "None":
+                fileExtension = token
+
+        currentprogram = str.replace(currentprogramWithFile, "." + fileExtension, "")
+
         self.view.window() \
             .show_input_panel("Enter the program name: ",
-                              "", self.set_program,
+                              currentprogram, self.set_program,
                               None, self.exit)
         return
 
@@ -50,7 +67,7 @@ class commitToTracey(sublime_plugin.TextCommand):
         logger.log('User entered CR: ' + cr)
         self.view.window() \
             .show_input_panel("Enter the file entension file: ",
-                              "", self.set_fileExtension,
+                              fileExtension, self.set_fileExtension,
                               None, self.exit)
         return
 
@@ -125,3 +142,4 @@ class commitToTracey(sublime_plugin.TextCommand):
     def exit(self):
         logger.log('User connection reset by peer')
         self.view.erase_status('task')
+        logger.close()
