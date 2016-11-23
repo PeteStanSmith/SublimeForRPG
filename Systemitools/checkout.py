@@ -21,19 +21,27 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
         global ir
         ir = ''
         global fileExtension
+        global currentIR
+        global currentCR
 
         currentprogramWithFile = ""
+        currentIR = ""
+        currentCR = ""
         filename = str(self.view.file_name())
+
         tokens = filename.split("\\")
 
-        for token in tokens:
-            if token != "None":
-                currentprogramWithFile = token
+        if len(tokens) > 1:
+            currentprogramWithFile = tokens[-1]
+            currentIR = tokens[-2]
 
-        tokens = currentprogramWithFile.split(".")
-        for token in tokens:
-            if token != "None":
-                fileExtension = token
+        tokens = currentIR.rsplit(".")
+        if len(tokens) > 1:
+            currentIR = tokens[-2]
+            currentCR = tokens[-1]
+
+        tokens = currentprogramWithFile.rsplit(".")
+        fileExtension = tokens[-1]
 
         currentprogram = str.replace(currentprogramWithFile, "." + fileExtension, "")
 
@@ -49,19 +57,22 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
         logger.log('User entered program: ' + program)
         self.view.window() \
             .show_input_panel("Enter the IR or Figaro library: ",
-                              "", self.set_ir,
+                              currentIR, self.set_ir,
                               None, self.exit)
         return
 
     def set_ir(self, text):
         global ir
         global library
+
+
+
         if (text[:1]) == '0':
             ir = text
             logger.log('User entered IR: ' + ir)
             self.view.window() \
                 .show_input_panel("Enter the CR: ",
-                                  "", self.set_cr,
+                                  currentCR, self.set_cr,
                                   None, self.exit)
         else:
             library = text
@@ -92,6 +103,7 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
         global fileExtension
         global logFile
         global library
+        global directory
 
         fileExtension = text
         logger.log('User entered file extension: ' + fileExtension)
@@ -100,7 +112,15 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
         if ir != '':
             library = ('o#' + ir + cr)
 
-        fileName = 'C:\\jhc\\src\\RPG\\CR\\' + program + '.' + \
+        if ir != '':
+          directory = ('C:\\jhc\\src\\RPG\\CR\\' + ir + '.' + cr)
+        else:
+          directory = ('C:\\jhc\\src\\RPG\\CR\\')
+
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        fileName = directory + '\\' + program + '.' + \
                    fileExtension
         try:
             retrievalTarget = Utils.getRetrievalTarget(fileExtension)
