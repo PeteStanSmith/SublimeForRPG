@@ -55,6 +55,8 @@ These commands will now be available from the command palette (Ctrl+Shift+P)
 
 ## Release notes
 
+### 2.6
+IR/CR organisation and memory added. I advise you commit all source and delete them before updating to avoid any confusion.
 ### 2.5
 Will autopopulate the file name and extension from the active view if possible. Close the log file when the commit or check out prompts are exited.
 ### 2.4
