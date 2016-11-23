@@ -19,19 +19,27 @@ class commitToTracey(sublime_plugin.TextCommand):
         global ir
         global fileExtension
         ir = ''
+        global currentIR
+        global currentCR
 
         currentprogramWithFile = ""
+        currentIR = ""
+        currentCR = ""
         filename = str(self.view.file_name())
+
         tokens = filename.split("\\")
 
-        for token in tokens:
-            if token != "None":
-                currentprogramWithFile = token
+        if len(tokens) > 1:
+            currentprogramWithFile = tokens[-1]
+            currentIR = tokens[-2]
 
-        tokens = currentprogramWithFile.split(".")
-        for token in tokens:
-            if token != "None":
-                fileExtension = token
+        tokens = currentIR.rsplit(".")
+        if len(tokens) > 1:
+            currentIR = tokens[-2]
+            currentCR = tokens[-1]
+
+        tokens = currentprogramWithFile.rsplit(".")
+        fileExtension = tokens[-1]
 
         currentprogram = str.replace(currentprogramWithFile, "." + fileExtension, "")
 
@@ -47,7 +55,7 @@ class commitToTracey(sublime_plugin.TextCommand):
         logger.log('User entered program: ' + program)
         self.view.window() \
             .show_input_panel("Enter the IR: ",
-                              "", self.set_ir,
+                              currentIR, self.set_ir,
                               None, self.exit)
         return
 
@@ -57,7 +65,7 @@ class commitToTracey(sublime_plugin.TextCommand):
         logger.log('User entered IR: ' + ir)
         self.view.window() \
             .show_input_panel("Enter the CR: ",
-                              "", self.set_cr,
+                              currentCR, self.set_cr,
                               None, self.exit)
         return
 
@@ -102,7 +110,7 @@ class commitToTracey(sublime_plugin.TextCommand):
             if ir != '':
                 library = ('o#' + ir + cr)
 
-                fileName = 'C:\\jhc\\src\\RPG\\CR\\' + program + '.' + \
+                fileName = 'C:\\jhc\\src\\RPG\\CR\\' + ir + '.' + cr + '\\'+ program + '.' + \
                            fileExtension
 
                 try:
