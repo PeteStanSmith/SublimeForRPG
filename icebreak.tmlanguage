@@ -24,6 +24,7 @@ found @:http://stackoverflow.com/questions/10834765/where-to-find-a-list-of-scop
 		<string>asmx</string>
 		<string>rpgle</string>
 		<string>sqlrpgle</string>
+		<string>rpgleref</string>
 	</array>
 	<key>foldingStartMarker</key>
 	<string>(?i)(for|if|do|dow|dou|select|begsr)</string>
@@ -68,7 +69,7 @@ found @:http://stackoverflow.com/questions/10834765/where-to-find-a-list-of-scop
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\s(?i)(as|alter|ascii|and|asi_nulls|begin|binary|bool|byte|case|char|close|const|continue|create|cursor|datetime|dec|declare|decimal|default|delete|do|double|drop|else|end|encryption|execute|exists|false|fetch|float|for|from|full|function|go|goto|grant|group by|having|if|in|index|inner|insert|int|into|is|join|key|left|like|long|matched|merge|money|native|new|nocount|nolock|not|null|next|off|on|order by|open|prepare|primary|print|procedure|quoted_identifier|return|right|rowlock|set|select|small|smalldatetime|smallint|smallmoney|sysname|table|then|timestamp|tinyint|to|top|true|update|updlock|uniqueidentifier|use|using|values|varchar|void|with|when|where|while)\b</string>
+					<string>\s(?i)(all|as|alter|ascii|and|asi_nulls|begin|binary|bool|byte|case|cast|char|close|coalesce|const|continue|create|cursor|datetime|dec|declare|decimal|default|delete|distinct|do|double|drop|else|end|encryption|execute|exists|false|fetch|first|float|for|from|full|function|go|goto|grant|group by|having|if|in|index|inner|insert|int|into|is|join|key|left|like|long|matched|merge|money|native|new|nocount|nolock|not|null|next|off|on|only|or|order by|open|prepare|primary|print|procedure|quoted_identifier|round|recursive|return|right|row|rows|rowlock|scroll|set|select|small|smalldatetime|smallint|smallmoney|sum|sysname|table|then|timestamp|tinyint|to|top|true|update|updlock|uniqueidentifier|use|union|using|values|varchar|void|with|when|where|while)\b</string>
 					<key>name</key>
 					<string>keyword.control</string>
 				</dict>
@@ -139,13 +140,13 @@ found @:http://stackoverflow.com/questions/10834765/where-to-find-a-list-of-scop
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>(?i)[\%](abs|addr|alloc|bitand|bitnot|bitor|bitxor|char|check|checkr|date|days|dec|dech|decpos|diff|div|editc|editflt|editw|elem|eof|equal|error|fields|float|found|graph|hours|int|inth|kds|len|lookup|minutes|months|mseconds|nullind|occur|open|paddr|paddr|parms|realloc|rem|replace|scan|seconds|shtdn|size|sqrt|status|str|str|str|subdt|this|time|timestamp|tlookup|trim|triml|trimr|ucs2|uns|unsh|xfoot|xlate|subst|years)\b</string>
+			<string>(?i)[\%](abs|addr|alloc|bitand|bitnot|bitor|bitxor|char|check|checkr|date|days|dec|dech|decpos|diff|div|editc|editflt|editw|elem|eof|equal|error|fields|float|found|graph|hours|int|inth|kds|len|lookup|minutes|months|mseconds|nullind|occur|open|paddr|paddr|parmnum|parms|realloc|rem|replace|scan|seconds|shtdn|size|sqrt|status|str|str|str|subdt|this|time|timestamp|tlookup|trim|triml|trimr|ucs2|uns|unsh|xfoot|xlate|subst|years)\b</string>
 			<key>name</key>
 			<string>constant.builtinfunction.icebreak</string>
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>(?i)\b(not|acq|add|adddur|alloc|and|bitoff|biton|cab|call|callb|callp|cas|cat|chain|check|checkr|clear|close|commit|comp|dealloc|define|delete|div|dsply|dump|eval|evalr|except|exfmt|exsr|extrct|feod|force|goto|in|iter|kfld|klist|leave|leavesr|lookup|mhhzo|mhlzo|mlhzo|mllzo|monitor|move|movea|movel|mult|mvr|next|occur|on|open|or|other|out|parm|plist|post|read|readc|reade|readp|readpe|realloc|rel|reset|reset|return|rolbk|scan|setgt|setll|setoff|seton|shtdn|sorta|sqrt|sub|subdur|subst|tag|test|testb|testn|testz|time|unlock|update|write|xfoot|xlate|z-add|z-sub)\b</string>
+			<string>(?i)\b(not|acq|add|adddur|alloc|and|bitoff|biton|cab|call|callb|callp|cas|cat|chain|check|checkr|clear|close|commit|comp|dealloc|define|delete|div|dsply|dump|eval|endmon|evalr|except|exfmt|exsr|extrct|feod|force|goto|in|iter|kfld|klist|leave|leavesr|lookup|mhhzo|mhlzo|mlhzo|mllzo|monitor|move|movea|movel|mult|mvr|next|occur|on|open|or|other|out|parm|plist|post|read|readc|reade|readp|readpe|realloc|rel|reset|reset|return|rolbk|scan|setgt|setll|setoff|seton|shtdn|sorta|sqrt|sub|subdur|subst|tag|test|testb|testn|testz|time|unlock|update|write|xfoot|xlate|z-add|z-sub)\b</string>
 			<key>name</key>
 			<string>keyword.operator.icebreak</string>
 		</dict>
@@ -164,7 +165,7 @@ found @:http://stackoverflow.com/questions/10834765/where-to-find-a-list-of-scop
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>(?i)[*](ON|OFF|ENTRY|ALL|BLANK|BLANKS|ZERO|ZEROS|HIVAL|LOVAL)\b</string>
+			<string>(?i)[*](ON|OFF|ENTRY|ALL|BLANK|BLANKS|NULL|ZERO|ZEROS|HIVAL|LOVAL)\b</string>
 			<key>name</key>
 			<string>constant.language.icebreak</string>
 		</dict>

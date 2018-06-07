@@ -54,7 +54,8 @@ These commands will now be available from the command palette (Ctrl+Shift+P)
 ```
 
 ## Release notes
-
+### 2.7 
+Character conversion and replacement for dollar sign, not sign and left square bracket. Better handling of parsed with warnings and unparsed lines. Futher source highlighting changes to icebreak.
 ### 2.6
 IR/CR organisation and memory added. I advise you commit all source and delete them before updating to avoid any confusion.
 ### 2.5

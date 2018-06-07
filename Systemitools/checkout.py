@@ -4,7 +4,6 @@ from ftplib import FTP
 import os
 from Systemitools.logger import Logger
 from Systemitools.fileExtension import Utils
-# import keepasshttp
 
 class checkoutFromTracey(sublime_plugin.TextCommand):
 
@@ -133,12 +132,8 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
 
         global file
         file = open(fileName, 'w', encoding='ascii')
-        ftp = FTP('tracey')
-
-        ftp.login('SMITHP', 'qsdw99co')
-        # session = keepasshttp.start('sublimeForRpg')
-        # logins = session.getLogins('tracey')
-        # logger.log(logins)
+        ftp = FTP('<system>')
+        ftp.login('<username>', '<password>')
 
         try:
             ftp.cwd(library)
