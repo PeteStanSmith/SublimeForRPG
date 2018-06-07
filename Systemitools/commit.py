@@ -4,6 +4,10 @@ import datetime
 from Systemitools.logger import Logger
 from Systemitools.fileExtension import Utils
 
+from tempfile import mkstemp
+from shutil import move
+from os import fdopen, remove
+
 
 class commitToTracey(sublime_plugin.TextCommand):
 
@@ -123,12 +127,18 @@ class commitToTracey(sublime_plugin.TextCommand):
                                 '.' + program)
                 logger.log(putOperation)
 
+                self.characterConversion(fileName)
                 global file
                 file = open(fileName, 'rb')
                 ftp = FTP('tracey')
 
-                ftp.login('PSDEV', 'PSDEV')
+                ftp.login('SMITHP', 'qsdw99co')
                 ftp.cwd(library)
+
+                #undo replacements
+                #for line in file:
+                #    line = line.replace('\x24', '\xA2')
+
                 ftp.storlines(putOperation, file)
                 ftp.quit()
                 file.close()
@@ -151,3 +161,21 @@ class commitToTracey(sublime_plugin.TextCommand):
         logger.log('User connection reset by peer')
         self.view.erase_status('task')
         logger.close()
+
+    def characterConversion(self, file_path):
+        #Create temp file
+        fh, abs_path = mkstemp()
+        with fdopen(fh,'w') as new_file:
+            with open(file_path) as old_file:
+                for line in old_file:
+                    # dollar sign
+                    line = line.replace('\x24', '\xA2')
+                    # left square bracket
+                    line = line.replace('\x5B', '\xA3')
+                    # not sign ¬
+                    line = line.replace('\x5F', '\xAC')
+                    new_file.write(line)
+        #Remove original file
+        remove(file_path)
+        #Move new file
+        move(abs_path, file_path)

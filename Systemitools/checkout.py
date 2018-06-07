@@ -1,9 +1,10 @@
+
 import sublime_plugin
 from ftplib import FTP
 import os
 from Systemitools.logger import Logger
 from Systemitools.fileExtension import Utils
-
+# import keepasshttp
 
 class checkoutFromTracey(sublime_plugin.TextCommand):
 
@@ -43,7 +44,8 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
         tokens = currentprogramWithFile.rsplit(".")
         fileExtension = tokens[-1]
 
-        currentprogram = str.replace(currentprogramWithFile, "." + fileExtension, "")
+        currentprogram = str.replace(currentprogramWithFile, "."
+            + fileExtension, "")
 
         self.view.window() \
             .show_input_panel("Enter the program name: ",
@@ -64,8 +66,6 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
     def set_ir(self, text):
         global ir
         global library
-
-
 
         if (text[:1]) == '0':
             ir = text
@@ -135,7 +135,11 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
         file = open(fileName, 'w', encoding='ascii')
         ftp = FTP('tracey')
 
-        ftp.login('PSDEV', 'PSDEV')
+        ftp.login('SMITHP', 'qsdw99co')
+        # session = keepasshttp.start('sublimeForRpg')
+        # logins = session.getLogins('tracey')
+        # logger.log(logins)
+
         try:
             ftp.cwd(library)
             try:
@@ -175,12 +179,6 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
             # This section will replace the none acsii
             # characters with a blank space.
             try:
-                # see-change header character
-                line = line.replace('\x80', '\x20')
-                #  ¦ Alt Gr pipe
-                line = line.replace('\xA6', '\x20')
-                # ¬ not sign
-                line = line.replace('\xAC', '\x20')
 
                 # white hex colour
                 line = line.replace('\x82', '\x20')
@@ -193,22 +191,31 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
                 # Yellow hex colour
                 line = line.replace('\x96', '\x20')
 
-                # [ open square bracket - replaced with ^.
-                line = line.replace('\xA3', '\x5E')
-
                 file.write(line + "\n")
 
             except UnicodeEncodeError:
                 # This section is for those characters
                 # that we should log as replaced.
-
                 # incase we need the hex value
-                # newline = ":".join("{:02x}".format(ord(c)) for c in line)
+                try:
+                    # see-change header character
+                    line = line.replace('\x80', '\x20')
+                    #  ¦ Alt Gr pipe
+                    line = line.replace('\xA6', '\x20')
 
-                # dollar sign - not an ascii character
-                line = line.replace('\xA2', '\x20')
+                    # ¬ not sign
+                    line = line.replace('\xAC', '\x5F')
+                    # dollar sign - not an ascii character
+                    line = line.replace('\xA2', '\x24')
 
-                file.write(line + "\n")
-                logger.log('Unable to parse line ' +
+                    # [ open square bracket - replaced with ^.
+                    line = line.replace('\xA3', '\x5B')
+
+                    file.write(line + "\n")
+                    logger.log('Unable to parse line ' +
                            str(count) + '. Take care when editing ' +
                            'this! Printed: ' + line)
+
+                except UnicodeEncodeError:
+                   file.write('!!! line corrupted !!!' + "\n")
+                   logger.log('Unable to parse line ' + str(count) + '.')
