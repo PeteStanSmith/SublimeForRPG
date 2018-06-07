@@ -8,7 +8,6 @@ from tempfile import mkstemp
 from shutil import move
 from os import fdopen, remove
 
-
 class commitToTracey(sublime_plugin.TextCommand):
 
     def run(self, edit):
@@ -134,10 +133,6 @@ class commitToTracey(sublime_plugin.TextCommand):
 
                 ftp.login('SMITHP', 'qsdw99co')
                 ftp.cwd(library)
-
-                #undo replacements
-                #for line in file:
-                #    line = line.replace('\x24', '\xA2')
 
                 ftp.storlines(putOperation, file)
                 ftp.quit()
