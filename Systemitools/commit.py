@@ -129,9 +129,8 @@ class commitToTracey(sublime_plugin.TextCommand):
                 self.characterConversion(fileName)
                 global file
                 file = open(fileName, 'rb')
-                ftp = FTP('tracey')
-
-                ftp.login('SMITHP', 'qsdw99co')
+                ftp = FTP('<system>')
+                ftp.login('<username>', '<password>')
                 ftp.cwd(library)
 
                 ftp.storlines(putOperation, file)
