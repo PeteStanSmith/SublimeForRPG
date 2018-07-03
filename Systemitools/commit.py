@@ -167,7 +167,10 @@ class commitToTracey(sublime_plugin.TextCommand):
                     # left square bracket
                     line = line.replace('\x5B', '\xA3')
                     # not sign ¬
-                    line = line.replace('\x5F', '\xAC')
+                    #line = line.replace('\x5F', '\xAC')
+                    #  ¦ Alt Gr pipe (broken bar)
+                    line = line.replace('\x7E', '\xA6')
+
                     new_file.write(line)
         #Remove original file
         remove(file_path)

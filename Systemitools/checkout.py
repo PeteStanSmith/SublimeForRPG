@@ -132,8 +132,8 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
 
         global file
         file = open(fileName, 'w', encoding='ascii')
-        ftp = FTP('tracey')
-        ftp.login('smithp', 'n68h5xdq')
+        ftp = FTP('<system>')
+        ftp.login('<username>', '<password>')
 
         try:
             ftp.cwd(library)
