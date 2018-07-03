@@ -132,8 +132,8 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
 
         global file
         file = open(fileName, 'w', encoding='ascii')
-        ftp = FTP('<system>')
-        ftp.login('<username>', '<password>')
+        ftp = FTP('tracey')
+        ftp.login('smithp', 'n68h5xdq')
 
         try:
             ftp.cwd(library)
@@ -175,6 +175,7 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
             # characters with a blank space.
             try:
 
+                # hex colours we should remove.
                 # white hex colour
                 line = line.replace('\x82', '\x20')
                 # blue hex colour
@@ -186,6 +187,18 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
                 # Yellow hex colour
                 line = line.replace('\x96', '\x20')
 
+                ## characters that can be replaced.
+                # ¬ not sign
+                line = line.replace('\xAC', '\x5F')
+                # dollar sign - not an ascii character
+                line = line.replace('\xA2', '\x24')
+                # [ open square bracket - replaced with ^.
+                line = line.replace('\xA3', '\x5B')
+                #  ¦ Alt Gr pipe (broken bar)
+                line = line.replace('\xA6', '\x7E')
+                # see change header character
+                line = line.replace('\x17', '\x20')
+
                 file.write(line + "\n")
 
             except UnicodeEncodeError:
@@ -195,22 +208,11 @@ class checkoutFromTracey(sublime_plugin.TextCommand):
                 try:
                     # see-change header character
                     line = line.replace('\x80', '\x20')
-                    #  ¦ Alt Gr pipe
-                    line = line.replace('\xA6', '\x20')
-
-                    # ¬ not sign
-                    line = line.replace('\xAC', '\x5F')
-                    # dollar sign - not an ascii character
-                    line = line.replace('\xA2', '\x24')
-
-                    # [ open square bracket - replaced with ^.
-                    line = line.replace('\xA3', '\x5B')
-
                     file.write(line + "\n")
                     logger.log('Unable to parse line ' +
                            str(count) + '. Take care when editing ' +
                            'this! Printed: ' + line)
 
                 except UnicodeEncodeError:
-                   file.write('!!! line corrupted !!!' + "\n")
-                   logger.log('Unable to parse line ' + str(count) + '.')
+                   file.write("\n")
+                   logger.log('Unable to parse line ' + str(count) + '. ' )
